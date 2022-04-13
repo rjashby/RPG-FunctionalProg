@@ -1,8 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -12,16 +12,16 @@ module.exports = {
   },
   devtool: 'eval-source-map',
   devServer: {
-    static: './dist'      
+    static: './dist'
   },
   plugins: [
+    new ESLintPlugin(),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'template',
       template: './src/index.html',
       inject: 'body'
     }),
-    new ESLintPlugin(),
     new Dotenv()
   ],
   module: {
@@ -34,9 +34,17 @@ module.exports = {
         ]
       },
       {
-        test: /\.txt/,
-        type: 'asset/source'
-      }
+        test: /\.(gif|png|jpe?g|jpg|svg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'assets/images/'
+            }
+          }
+        ]
+      },
     ]
   }
 };
