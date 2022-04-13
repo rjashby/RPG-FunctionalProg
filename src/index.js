@@ -52,48 +52,61 @@ const warlockState = () => {
 
 const warlockControl = warlockState();
 
-const warlockState = () => {
-  let warlock = {};
+const sorcererState = () => {
+  let sorcerer = {};
   return (stateChangeFunction = state => state) => {
-    const newState = stateChangeFunction(warlock);
-    warlock = {...newState};
+    const newState = stateChangeFunction(sorcerer);
+    sorcerer = {...newState};
     return newState;
   };
 };
 
-const warlockControl = warlockState();
+const sorcererControl = sorcererState();
 
-const warlockState = () => {
-  let warlock = {};
+const rogueState = () => {
+  let rogue = {};
   return (stateChangeFunction = state => state) => {
-    const newState = stateChangeFunction(warlock);
-    warlock = {...newState};
+    const newState = stateChangeFunction(rogue);
+    rogue = {...newState};
     return newState;
   };
 };
 
-const warlockControl = warlockState();
+const rogueControl = rogueState();
 
 $(document).ready(function() {
   $('#roll').click(function() {
-    console.log("is this thing on?");
     const getStats = rangerControl(baseChar1Stats);
-    $('#char1').text(`Intelligence: ${getStats.intel}; Dexterity: ${getStats.dex}; Strength: ${getStats.str}; Wisdom: ${getStats.wis}; Charisma: ${getStats.char}; Constitution: ${getStats.cons}`);
-    console.log(rangerControl());
+    $('#char1').text(`RANGER - Intelligence: ${getStats.intel}; Dexterity: ${getStats.dex}; Strength: ${getStats.str}; Wisdom: ${getStats.wis}; Charisma: ${getStats.char}; Constitution: ${getStats.cons}`);
+    document.getElementById("roll").disabled = true;
   });
 
-    $('#roll2').click(function() {
-      console.log("is this thing on?");
-      const getStats = warlockControl(baseChar2Stats);
-      $('#char2').text(`Intelligence: ${getStats.intel}; Dexterity: ${getStats.dex}; Strength: ${getStats.str}; Wisdom: ${getStats.wis}; Charisma: ${getStats.char}; Constitution: ${getStats.cons}`);
-      console.log(warlockControl());
-    });
+  $('#roll2').click(function() {
+    const getStats = warlockControl(baseChar2Stats);
+    $('#char2').text(`WARLOCK - Intelligence: ${getStats.intel}; Dexterity: ${getStats.dex}; Strength: ${getStats.str}; Wisdom: ${getStats.wis}; Charisma: ${getStats.char}; Constitution: ${getStats.cons}`);
+    document.getElementById("roll2").disabled = true;
+  });
+
+  $('#roll3').click(function() {
+    const getStats = sorcererControl(baseChar3Stats);
+    $('#char3').text(`SORCERER - Intelligence: ${getStats.intel}; Dexterity: ${getStats.dex}; Strength: ${getStats.str}; Wisdom: ${getStats.wis}; Charisma: ${getStats.char}; Constitution: ${getStats.cons}`);
+    document.getElementById("roll3").disabled = true;
+  });
+
+  $('#roll4').click(function() {
+    const getStats = rogueControl(baseChar4Stats);
+    $('#char4').text(`ROGUE - Intelligence: ${getStats.intel}; Dexterity: ${getStats.dex}; Strength: ${getStats.str}; Wisdom: ${getStats.wis}; Charisma: ${getStats.char}; Constitution: ${getStats.cons}`);
+    document.getElementById("roll4").disabled = true;
+  });
 
   $('#showstats').click(function() {
-    console.log("is this thing on?");
     const rangState = rangerControl();
-    $('#output').text(`These are your current stats: ${rangState.intel}, ${rangState.dex}, ${rangState.str} ,${rangState.wis} ,${rangState.char} ,${rangState.cons}`);
+    $('#output').text(`These are your Ranger's current stats: ${rangState.intel}, ${rangState.dex}, ${rangState.str} ,${rangState.wis} ,${rangState.char} ,${rangState.cons}`);
     const warState = warlockControl();
-    $('#output2').text(`These are your current stats: ${warState.intel}, ${warState.dex}, ${warState.str} ,${warState.wis} ,${warState.char} ,${warState.cons}`);
+    $('#output2').text(`These are your Warlock's current stats: ${warState.intel}, ${warState.dex}, ${warState.str} ,${warState.wis} ,${warState.char} ,${warState.cons}`);
+    const sorcState = sorcererControl();
+    $('#output3').text(`These are your Sorcerer's current stats: ${sorcState.intel}, ${sorcState.dex}, ${sorcState.str} ,${sorcState.wis} ,${sorcState.char} ,${sorcState.cons}`);
+    const rogState = rogueControl();
+    $('#output4').text(`These are your Rogue's current stats: ${rogState.intel}, ${rogState.dex}, ${rogState.str} ,${rogState.wis} ,${rogState.char} ,${rogState.cons}`);
   });
 });
