@@ -1,13 +1,13 @@
-const assignStats = (intel, dex, str, char, wis, cons) => {
+const assignStats = (prop1, prop2, prop3, prop4, prop5, prop6) => {
   return (val1, val2, val3, val4, val5, val6) => {
     return (obj) => ({
       ...obj,
-      [intel] : (obj[intel] || 0) + val1,
-      [dex] : (obj[dex] || 0) + val2,
-      [str] : (obj[str] || 0) + val3,
-      [char] : (obj[char] || 0) + val4,
-      [wis] : (obj[wis] || 0) + val5,
-      [cons] : (obj[cons] || 0) + val6,
+      [prop1] : (obj[prop1] || 0) + val1,
+      [prop2] : (obj[prop2] || 0) + val2,
+      [prop3] : (obj[prop3] || 0) + val3,
+      [prop4] : (obj[prop4] || 0) + val4,
+      [prop5] : (obj[prop5] || 0) + val5,
+      [prop6] : (obj[prop6] || 0) + val6,
     })
   }
 };
@@ -17,10 +17,9 @@ statRoll = function() {
   let dice2 = Math.floor(Math.random() * 6 ) + 1; 
   let dice3 = Math.floor(Math.random() * 6 ) + 1; 
   let dice4 = Math.floor(Math.random() * 6 ) + 1; 
-  let stats = dice1 + dice2 + dice3 + dice4
+  let stats = dice1 + dice2 + dice3 + dice4;
   return stats
 };
-
 
 const baseChar1Stats = assignStats("intel", "dex", "str", "char", "wis", "cons")(statRoll(), statRoll(), statRoll(), statRoll(), statRoll(), statRoll());
 
@@ -29,6 +28,7 @@ const baseChar2Stats = assignStats("intel", "dex", "str", "char", "wis", "cons")
 const baseChar3Stats = assignStats("intel", "dex", "str", "char", "wis", "cons")(statRoll(), statRoll(), statRoll(), statRoll(), statRoll(), statRoll());
 
 const baseChar4Stats = assignStats("intel", "dex", "str", "char", "wis", "cons")(statRoll(), statRoll(), statRoll(), statRoll(), statRoll(), statRoll());
+
 
 const rangerState = () => {
   let ranger = {};
@@ -74,7 +74,28 @@ const rogueState = () => {
 
 const rogueControl = rogueState();
 
+// This is a function factory, whose return function gets passed into the return function of storeListState, and becomes the stateChangeFunction.
+
+// const storeListState = () => {
+//   let currentState = [];
+//   return (stateChangeFunction = state => state) => {
+//     const newState = stateChangeFunction(currentState);
+//     currentState = [...newState];
+//     return newState;
+//   }
+// }
+
+// const listControl = storeListState();
+
+// const changeListState = (char) => {
+//   return (state) => ([
+//     ...state,
+//     char
+//   ])
+// }
+
 $(document).ready(function() {
+
   $('#roll').click(function() {
     const getStats = rangerControl(baseChar1Stats);
     $('#char1').text(`RANGER - Intelligence: ${getStats.intel}; Dexterity: ${getStats.dex}; Strength: ${getStats.str}; Wisdom: ${getStats.wis}; Charisma: ${getStats.char}; Constitution: ${getStats.cons}`);
